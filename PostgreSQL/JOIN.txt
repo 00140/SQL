@@ -1,0 +1,52 @@
+SELECT 
+	ot.id_ot AS OT,
+	pe.id_pedido AS Pedido,
+	pa.id_partida AS Partida,
+	ot.cant_fabricar AS Cantidad_Fabricar_OT,
+	ot.cant_surtir AS Cantidad_Surtir_OT,
+	pa.cantidad AS Cantidad_Partida,
+	pa.nom_disenio AS Diseño,
+	rhcl.nombre AS Cliente,
+	ot.fch_crea AS Fecha_Creacion,
+	ot.fch_compromiso AS Fecha_Compromiso,
+	rhpe.nombre AS Nombre,
+	rhpe.apellido AS Apeliido
+FROM prod.ordendetrabajo AS ot
+JOIN prod.rel_partida_ot AS relot ON (relot.id_ot = ot.id_ot)
+JOIN vta.pedido AS pe ON (pe.id_pedido = relot.id_pedido) 
+JOIN rh.persona AS rhcl ON (pe.id_cliente = rhcl.id_persona)
+JOIN vta.partida AS pa ON (pa.id_pedido = pe.id_pedido)
+JOIN rh.persona AS rhpe ON (pe.id_vendedor = rhpe.id_persona)
+WHERE 	ot.fch_crea >= '2024-06-01 00:00:00.000' 
+		and ot.fch_crea <= '2024-06-30 00:00:00.000'
+		and rhpe.nombre IN ('Aline','Claudia Isabel','María del Rocío')
+order by ot.fch_crea desc
+
+
+**********************CON CANCELADAD ***********************+
+
+SELECT 
+	ot.id_ot AS OT,
+	ot.st_ot AS Estatus_OT,
+	ot.ot_baja AS OT_Cancelada,
+	pe.id_pedido AS Pedido,
+	pa.id_partida AS Partida,
+	ot.cant_fabricar AS Cantidad_Fabricar_OT,
+	ot.cant_surtir AS Cantidad_Surtir_OT,
+	pa.cantidad AS Cantidad_Partida,
+	pa.nom_disenio AS Diseño,
+	rhcl.nombre AS Cliente,
+	ot.fch_crea AS Fecha_Creacion,
+	ot.fch_compromiso AS Fecha_Compromiso,
+	rhpe.nombre AS Nombre,
+	rhpe.apellido AS Apeliido
+FROM prod.ordendetrabajo AS ot
+JOIN prod.rel_partida_ot AS relot ON (relot.id_ot = ot.id_ot)
+JOIN vta.pedido AS pe ON (pe.id_pedido = relot.id_pedido) 
+JOIN rh.persona AS rhcl ON (pe.id_cliente = rhcl.id_persona)
+JOIN vta.partida AS pa ON (pa.id_pedido = pe.id_pedido)
+JOIN rh.persona AS rhpe ON (pe.id_vendedor = rhpe.id_persona)
+WHERE 	ot.fch_crea >= '2024-06-01 00:00:00.000' 
+		and ot.fch_crea <= '2024-06-30 00:00:00.000'
+		and rhpe.nombre IN ('Aline','Claudia Isabel','María del Rocío')
+order by ot.fch_crea desc

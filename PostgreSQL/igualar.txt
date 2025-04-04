@@ -1,0 +1,4 @@
+UPDATE alm.lote
+SET  existencia = cantidad
+FROM alm.entrada
+WHERE alm.lote.id_lote = alm.entrada.id_lote;
